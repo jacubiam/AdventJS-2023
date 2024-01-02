@@ -195,7 +195,7 @@ function adjustLights(lights) {
     }
 
     let amountCounterCW = 0
-    for (let i = lights.length-1; i >= 0 ; i--) {
+    for (let i = lights.length - 1; i >= 0; i--) {
         if (lights[i] == lights[i + 1]) {
             if (lights[i] == '🟢') {
                 lights[i] = '🔴'
@@ -214,3 +214,55 @@ function adjustLights(lights) {
 }
 
 /* console.log(adjustLights(["🔴", "🔴", "🟢", "🔴", "🟢"])); */
+
+//Day 10
+/*
+    Draw a tree with the given heigth and a character as an ornament
+*/
+function createChristmasTree(ornaments, height) {
+    let tree = ""
+    let currentOrnament = 0
+    for (let i = 0; i < height; i++) {
+        let spaces = height - 1 - i
+        let treeFloor = []
+        for (let j = 0; j < height; j++) {
+            if (spaces > 0) {
+                treeFloor.push(" ");
+                spaces--
+            } else {
+                for (let k = 0; k < i + 1; k++) {
+                    treeFloor.push(ornaments.charAt(currentOrnament))
+                    currentOrnament++
+                    if (k < i) {
+                        treeFloor.push(" ")
+                    }
+                    if (currentOrnament == ornaments.length) {
+                        currentOrnament = 0;
+                    }
+
+                }
+                break
+            }
+        }
+
+        treeFloor.push("\n")
+        tree += treeFloor.join("")
+    }
+
+    let spaces = height - 1
+    let treeBase = []
+    for (let j = 0; j < height; j++) {
+        if (spaces > 0) {
+            treeBase.push(" ");
+            spaces--
+        } else {
+            treeBase.push("|")
+        }
+    }
+    treeBase.push("\n")
+    tree += treeBase.join("")
+
+    return tree
+}
+
+/* console.log(createChristmasTree("123", 5)) */
