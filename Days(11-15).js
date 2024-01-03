@@ -81,7 +81,7 @@ function checkIsValidCopy(original, copy) {
                 return false
             }
         }
-        
+
         if (/\+/.test(original[i])) {
             if (!(/\+|:|\.|\s/.test(copy[i]))) {
                 return false
@@ -118,3 +118,31 @@ function checkIsValidCopy(original, copy) {
 }
 
 /* console.log(checkIsValidCopy('Santa Claus is coming','s #ta Cl#us i+ comin#')); */
+
+function calculateTime(deliveries) {
+    let seconds = 0
+    let minutes = 0
+    let hours = 0
+    let rawSeconds = 0
+    for (let i = 0; i < deliveries.length; i++) {
+        rawSeconds += Number(deliveries[i].slice(6))
+        rawSeconds += Number(deliveries[i].slice(3, 5) * 60)
+        rawSeconds += Number(deliveries[i].slice(0, 2) * 60 * 60)
+    }
+
+    let symbol = ""
+    if (rawSeconds < 25200) {
+        symbol = "-"
+        rawSeconds = 25200 - rawSeconds
+    } else rawSeconds = rawSeconds - 25200
+
+    hours = Math.trunc(rawSeconds / (60 * 60))
+    minutes = Math.trunc((rawSeconds % (60 * 60)) / 60)
+    seconds = Math.trunc(rawSeconds % 60)
+
+
+    return `${symbol}${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`
+
+}
+
+console.log(calculateTime(['04:10:00', '01:00:00', '03:30:00']));
