@@ -24,7 +24,7 @@ function getIndexsForPalindrome(word) {
             if (word[wrongIndexes[0]] == word[wrongIndexes[3]]) {
                 if (word[wrongIndexes[2]] == word[wrongIndexes[1]]) {
                     indexes = [wrongIndexes[0], wrongIndexes[2]]
-                    return indexes   
+                    return indexes
                 }
             }
         }
@@ -53,3 +53,68 @@ function getIndexsForPalindrome(word) {
 }
 
 /* console.log(getIndexsForPalindrome('abab')); */
+
+//Day 12
+/*
+    Validate if a string it's a descendant of another string based on a given hierarchy
+*/
+function checkIsValidCopy(original, copy) {
+    if (original.length != copy.length) {
+        return false
+    }
+
+    for (let i = 0; i < original.length; i++) {
+        if (/[A-Z]/.test(original[i])) {
+            if (!(original[i] == copy[i].toUpperCase() || /#|\+|:|\.|\s/.test(copy[i]))) {
+                return false
+            }
+        }
+
+        if (/[a-z]/.test(original[i])) {
+            if (!(original[i] == copy[i] || /#|\+|:|\.|\s/.test(copy[i]))) {
+                return false
+            }
+        }
+
+        if (/#/.test(original[i])) {
+            if (!(/#|\+|:|\.|\s/.test(copy[i]))) {
+                return false
+            }
+        }
+        
+        if (/\+/.test(original[i])) {
+            if (!(/\+|:|\.|\s/.test(copy[i]))) {
+                return false
+            }
+        }
+
+        if (/\+/.test(original[i])) {
+            if (!(/\+|:|\.|\s/.test(copy[i]))) {
+                return false
+            }
+        }
+
+        if (/:/.test(original[i])) {
+            if (!(/:|\.|\s/.test(copy[i]))) {
+                return false
+            }
+        }
+
+        if (/\./.test(original[i])) {
+            if (!(/\.|\s/.test(copy[i]))) {
+                return false
+            }
+        }
+
+        if (/\s/.test(original[i])) {
+            if (!(/\s/.test(copy[i]))) {
+                return false
+            }
+        }
+
+    }
+
+    return true
+}
+
+/* console.log(checkIsValidCopy('Santa Claus is coming','s #ta Cl#us i+ comin#')); */
